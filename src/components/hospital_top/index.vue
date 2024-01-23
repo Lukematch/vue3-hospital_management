@@ -32,6 +32,9 @@
     background-color: #eee;
     display: flex;
     justify-content: space-between;
+    font-weight: 100;
+    font-size: 14px;
+    font-family: "Gill Sans", sans-serif;
     .left{
         display: flex;
         justify-content: center;

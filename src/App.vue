@@ -3,10 +3,7 @@
     <HospitalTop/>
     <!-- 路由 -->
     <div class="content">
-      内容
-    </div>
-    <div class="bottom">
-
+      <RouterView></RouterView>
     </div>
     <HospitalBottom/>
   </div>
@@ -24,13 +21,8 @@
   .content {
     margin-top: 70px;
     width: 100%;
-    height: 621px;
-    background: #ddd;
-  }
-  .bottom{
-    width: 100%;
-    height: 50px;
-    background:#fff;
+    height: 639px;
+    /* background: #ddd; */
   }
 }
 
