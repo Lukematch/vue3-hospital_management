@@ -19,10 +19,10 @@
   
 <style lang="scss" scoped>
 .level{
-  margin-left:30px;
+  margin-left:60px;
   color:#7f7f7f;
   h1{
-    margin: 10px 0;
+    margin-bottom: 10px;
     font-weight:900;
   }
   .content{

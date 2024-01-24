@@ -21,14 +21,14 @@
   .content{
     display:flex;
     margin-top:10px;
-    margin-left:30px;
+    margin-left:60px;
   }
   .left{
     margin-right:10px
   }
   .area{
     display:flex;
-    felx-wrap:wrap;
+    flex-wrap:wrap;
       li{
         margin-right: 10px;
         &.active{

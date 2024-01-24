@@ -1,16 +1,23 @@
 <template>
-  <div class="container">
-    <HospitalTop/>
-    <!-- 路由 -->
-    <div class="content">
-      <RouterView></RouterView>
-    </div>
-    <HospitalBottom/>
+  <div class="main">
+    <el-scrollbar
+     max-height="800px"
+     class="scrollbar"
+     >
+      <div class="container">
+        <HospitalTop/>
+        <!-- 路由 -->
+        <div class="content">
+          <RouterView></RouterView>
+        </div>
+        <HospitalBottom/>
+      </div>
+    </el-scrollbar>
   </div>
 </template>
 
 <script setup lang="ts">
-  
+
 </script>
 
 <style scoped>
@@ -21,9 +28,11 @@
   .content {
     margin-top: 70px;
     width: 100%;
-    height: 639px;
+    height: 100%;
     /* background: #ddd; */
   }
 }
+
+
 
 </style>

@@ -20,12 +20,16 @@ const state = ref('')
 <style scoped lang="scss">
 .search{
   display: flex;
-  width: 100;
   margin-top:50px;
   justify-content: center;
   :deep(.el-input__wrapper){
     width: 400px;
+    height: 45px;
     margin-right: 5px;
+  }
+  :deep(.el-button){
+    height: 45px;
+    width: 50px;
   }
 }
 
