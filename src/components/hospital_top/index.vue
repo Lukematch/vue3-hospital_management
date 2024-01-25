@@ -41,10 +41,14 @@
         align-items: center;
         color: #55a6fe;
         img{
-            width: 50px;
-            height: 50px;
-            margin-left: 30px;
-            margin-right: 10px;
+          width: 50px;
+          height: 50px;
+          margin-left: 30px;
+          margin-right: 10px;
+        }
+        p{
+          font-size: 18px;
+          font-weight: 400;
         }
     }
     .right{

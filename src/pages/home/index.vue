@@ -11,17 +11,19 @@
         <Level/>
         <Region/>
         <div class="card">
-          <Card class="item" v-for="item in 10" :keey="item"/>
-          <el-pagination
+          <Card class="item" v-for="(item,index) in hasHospitalArr" :key="index" :hospiltalInfo="item"/>
+        </div>
+        <el-pagination
             class="pagination"
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
-            :page-sizes="[10, 20, 30, 40]"
+            :page-sizes="[10, 20]"
             :background="true"
             layout=" prev, pager, next, sizes, total, jumper"
-            :total="40"
+            :total="total"
+            @current-change="currentChange"
+            @size-change="sizeChange"
           />
-        </div>
       </el-col>
       <el-col :span="6">4</el-col>
     </el-row>
@@ -35,10 +37,42 @@ import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
 
-import { ref } from 'vue'
-
+import { onMounted, ref } from 'vue'
+import {reqHospital} from '@/api/home'
+import type {Content} from '@/api/home/type'
+import type {HospitalResponseData} from '@/api/home/type'
+// 分页器页码
 let currentPage = ref<number>(1)
+// 一页显示的数据
 let pageSize = ref<number>(10)
+// 医院数据
+let hasHospitalArr = ref<Content>([])
+// 存储医院的总个数
+let total = ref(0)
+
+const getHospitalInfo = async ()=>{
+  let result:HospitalResponseData = await reqHospital(currentPage.value,pageSize.value)
+  // console.log(result);
+  if(result.code === 200){
+    let hospitalList = result.data.content.filter((item:any)=>(item.bookingRule !== null))
+    console.log(hospitalList);
+    hasHospitalArr.value = hospitalList
+    // 存储医院总个数
+    // total.value = hospitalList.length;
+    total.value = 17
+  }
+}
+const currentChange = ()=>{
+  getHospitalInfo()
+}
+const sizeChange = ()=>{
+  currentPage.value = 1
+  getHospitalInfo()
+}
+
+onMounted(()=>{
+  getHospitalInfo()
+})
 </script>
 
 <style scoped>
@@ -61,15 +95,28 @@ let pageSize = ref<number>(10)
     margin-bottom: 30px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    .item{
+    @media screen and (min-width: 1070px){
+      .item{
       width: 45%;
+      }
     }
-    .pagination{
-      margin-top: 30px;
+    @media screen and (max-width: 1070px) and (min-width:750px){
+      .item{
+      width: 60%;
+      }
     }
-  }
+    @media screen and (max-width: 750px){
+      .item{
+      width: 60%;
+      }
+    }
 
+  }
+  .pagination{
+      margin-top: 30px;
+      margin-bottom: 30px;
+      justify-content: center;
+    }
 }
 
 .el-carousel__item:nth-child(2n) {

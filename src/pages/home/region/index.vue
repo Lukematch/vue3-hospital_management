@@ -4,15 +4,27 @@
         <div class="left">地区:</div>
         <ul class="area">
           <li class="active">全部</li>
-          <li>昌平区</li>
-          <li>金华区</li>
+          <li v-for="item in regionList" :key="item.id">{{ item.name }}</li>
         </ul>
       </div>
     </div>
 </template>
   
 <script setup lang='ts'>
-  
+import {onMounted, ref} from 'vue'
+import {HospitalLevelAndRegionArr , HospitalLevelAndRegionResponseData } from '@/api/home/type'
+import {reqTitle} from '@/api/home/index'
+
+let regionList = ref<HospitalLevelAndRegionArr>([])
+
+const getRegion = async ()=>{
+  let data:HospitalLevelAndRegionResponseData = await reqTitle('Beijin')
+  regionList.value = data.data
+  console.log(data.data);
+}
+onMounted(()=>{
+  getRegion()
+})
 </script>
   
 <style lang="scss" scoped>

@@ -9,5 +9,17 @@ export default defineConfig({
     alias:{
       "@":path.resolve(__dirname,'src')
     }
+  },
+  server: {
+    proxy: {
+      // 使用 proxy 实例
+      '/api': {
+        target: 'http://syt.atguigu.cn',
+        changeOrigin: true,
+        // configure: (proxy, options) => {
+        //   // proxy 是 'http-proxy' 的实例
+        // }
+      },
+    }
   }
 })
