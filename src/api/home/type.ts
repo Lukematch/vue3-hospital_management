@@ -3,9 +3,7 @@ export interface ResponseData {
   code: number,
   message: string,
   ok: boolean,
-
 }
-
 // 某个医院对象的ts类型
 // content
 export interface Hospital {
@@ -37,9 +35,10 @@ export interface Hospital {
     "rule": string[]
   }
 }
-
+// 存储全部已有医院的数组类型
 export type Content = Hospital[]
 
+// 获取已有医院接口返回的数据ts类型
 export interface HospitalResponseData extends ResponseData {
   data: {
     "content": Content,
@@ -71,6 +70,7 @@ export interface HospitalResponseData extends ResponseData {
   }
 }
 
+// 医院等级或者地区的数据ts类型
 export interface HospitalLevelAndRegion {
       "createTime": string,
       "dictCode": string,
@@ -83,7 +83,13 @@ export interface HospitalLevelAndRegion {
       "updateTime": string,
       "value": string
 }
+// 封装医院等级或者地区的数据的data数组
 export type HospitalLevelAndRegionArr = HospitalLevelAndRegion[]
+// 医院等级或者地区接口的返回类型
 export interface HospitalLevelAndRegionResponseData extends ResponseData{
   data:HospitalLevelAndRegionArr
+}
+// 医院信息接口的返回类型
+export interface HospitalIndfo extends ResponseData{
+  data:Content
 }

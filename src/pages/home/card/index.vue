@@ -1,5 +1,8 @@
 <template>
-    <el-card shadow="hover" class="box-card">
+    <el-card
+    @click="goDetail"
+    shadow="hover"
+    class="box-card">
       <div class="content">
         <div class="left">
           <div class="name">{{ hospiltalInfo.hosname }}</div>
@@ -22,7 +25,16 @@
 </template>
 
 <script setup lang='ts'>
-defineProps(['hospiltalInfo'])
+import { useRouter } from 'vue-router';
+
+let props = defineProps(['hospiltalInfo'])
+
+let $router = useRouter()
+
+const goDetail = ()=>{
+  $router.push('/hospital')
+  console.log(props);
+}
 </script>
 
 <style scoped>

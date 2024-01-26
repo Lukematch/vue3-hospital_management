@@ -1,9 +1,9 @@
 <template>
     <div class="top">
         <div class="content">
-            <div class="left">
-                <img src="@/assets/images/logo.png"/>
-                <p>尚医通 预约挂号统一平台</p>
+            <div class="left" @click="goHome">
+              <img src="@/assets/images/logo.png"/>
+              <p>尚医通 预约挂号统一平台</p>
             </div>
             <div class="right">
                 <p class="help">帮助中心</p>
@@ -12,9 +12,14 @@
         </div>
     </div>
 </template>
-    
+
 <script setup lang='ts'>
-    
+import { useRouter } from 'vue-router';
+
+let $router = useRouter()
+const goHome = ()=>{
+  $router.push('/home')
+}
 </script>
     
 <style scoped>
@@ -35,7 +40,8 @@
     font-weight: 100;
     font-size: 14px;
     font-family: "Gill Sans", sans-serif;
-    .left{
+      .left{
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -50,7 +56,8 @@
           font-size: 18px;
           font-weight: 400;
         }
-    }
+      }
+
     .right{
         display: flex;
         justify-content: center;

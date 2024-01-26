@@ -1,8 +1,7 @@
 <template>
   <div class="main">
     <el-scrollbar
-     max-height="800px"
-     class="scrollbar"
+     height="800px"
      >
       <div class="container">
         <HospitalTop/>
@@ -14,6 +13,7 @@
       </div>
     </el-scrollbar>
   </div>
+  <!-- <el-backtop /> -->
 </template>
 
 <script setup lang="ts">
@@ -28,18 +28,22 @@ onMounted(()=>{
 </script>
 
 <style scoped>
-.container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .content {
-    margin-top: 70px;
-    width: 100%;
-    height: 100%;
-    /* background: #ddd; */
+.main{
+  /* /deep/ .el-scrollbar__thumb {
+      height: 10px;
+  } */
+  .container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .content {
+      margin-top: 70px;
+      width: 100%;
+      height: 100%;
+      /* background: #ddd; */
+    }
   }
 }
-
 
 
 </style>

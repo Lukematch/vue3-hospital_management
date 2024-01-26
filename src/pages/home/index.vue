@@ -8,11 +8,12 @@
   <div class="content">
     <el-row gutter:any="20">
       <el-col :span="18">
-        <Level/>
-        <Region/>
-        <div class="card">
+        <Level @getLevel="getLevel"/>
+        <Region @getRegion="getRegion"/>
+        <div class="card" v-if="hasHospitalArr.length>0">
           <Card class="item" v-for="(item,index) in hasHospitalArr" :key="index" :hospiltalInfo="item"/>
         </div>
+        <el-empty v-else description="暂无信息"/>
         <el-pagination
             class="pagination"
             v-model:current-page="currentPage"
@@ -48,18 +49,22 @@ let pageSize = ref<number>(10)
 // 医院数据
 let hasHospitalArr = ref<Content>([])
 // 存储医院的总个数
-let total = ref(0)
+let total = ref<number>(0)
+// hostype医院等级
+let hostype = ref<string>('')
+// disrictCode医院地区代码
+let districtCode = ref<string>('')
 
 const getHospitalInfo = async ()=>{
-  let result:HospitalResponseData = await reqHospital(currentPage.value,pageSize.value)
+  let result:HospitalResponseData = await reqHospital(currentPage.value,pageSize.value,hostype.value,districtCode.value)
   // console.log(result);
   if(result.code === 200){
     let hospitalList = result.data.content.filter((item:any)=>(item.bookingRule !== null))
     console.log(hospitalList);
     hasHospitalArr.value = hospitalList
     // 存储医院总个数
-    // total.value = hospitalList.length;
-    total.value = 17
+    total.value = hospitalList.length;
+    // total.value = 17
   }
 }
 const currentChange = ()=>{
@@ -67,6 +72,17 @@ const currentChange = ()=>{
 }
 const sizeChange = ()=>{
   currentPage.value = 1
+  getHospitalInfo()
+}
+
+// 子组件Level的回调，更新匹配的数据
+const getLevel = (level:string)=>{
+  hostype.value = level
+  getHospitalInfo()
+}
+// 子组件Region的回调，更新匹配的数据
+const getRegion = (region:string)=>{
+  districtCode.value = region
   getHospitalInfo()
 }
 
