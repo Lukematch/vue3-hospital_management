@@ -1,8 +1,6 @@
 <template>
   <div class="main">
-    <el-scrollbar
-     height="800px"
-     >
+    <!-- <el-scrollbar> -->
       <div class="container">
         <HospitalTop/>
         <!-- 路由 -->
@@ -11,7 +9,7 @@
         </div>
         <HospitalBottom/>
       </div>
-    </el-scrollbar>
+    <!-- </el-scrollbar> -->
   </div>
   <!-- <el-backtop /> -->
 </template>

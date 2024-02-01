@@ -16,7 +16,7 @@
 import { ref } from 'vue';
 import { Search } from '@element-plus/icons-vue';
 import { reqHospitalInfo } from '@/api/home';
-import type { HospitalIndfo , Content } from '@/api/home/type';
+import type { HospitalIndfo } from '@/api/home/type';
 import { useRouter } from 'vue-router';
 
 const state = ref<string>('')
@@ -35,9 +35,11 @@ const fetchData:any = async (value:string,callback:any)=>{
   })
   callback(showData)
 }
-const selectDetail:any = (item:Content)=>{
+const selectDetail:any = (item:any)=>{
     console.log(item);
-    $router.push('/hospital')
+    $router.push({path:'/hospital/register',query:{
+      hoscode:item.hoscode
+    }})
 }
 
 </script>

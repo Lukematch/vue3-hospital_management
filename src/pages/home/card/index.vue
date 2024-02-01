@@ -32,8 +32,10 @@ let props = defineProps(['hospiltalInfo'])
 let $router = useRouter()
 
 const goDetail = ()=>{
-  $router.push('/hospital')
-  console.log(props);
+  $router.push({path:'/hospital/register',query:{
+    hoscode:props.hospiltalInfo.hoscode
+  }})
+  // console.log(props);
 }
 </script>
 
@@ -70,57 +72,34 @@ const goDetail = ()=>{
     }
   }
 }
-@media screen and (max-width: 1070px) and (min-width:750px){
+@media screen and (max-width: 1070px){
   .box-card{
     margin-top: 10px;
-    margin-left: 150px;
+    margin-left: 70px;
     .content{
       display: flex;
       justify-content: space-between;
       .left{
-        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        width: 70%;
         .tip{
           color: #7f7f7f;
           margin-top: 10px;
-          display: flex;
-          justify-content: space-between;
-          .level , .time {
+          .level{
             display: flex;
             align-items: center;
-            margin-top: 5px;
-            /* span{
+            margin-top: 10px;
+            margin-left: 6px;
+            span{
               margin-left: 5px;
-            } */
+            }
           }
-        }
-      }
-      .right{
-        img{
-          width: 40px;
-          height: 40px;
-        }
-      }
-    }
-  }
-}
-@media screen and (max-width: 750px) {
-  .box-card{
-    margin-top: 10px;
-    margin-left: 120px;
-    .content{
-      display: flex;
-      justify-content: space-between;
-      .left{
-        width: 100px;
-        .tip{
-          color: #7f7f7f;
-          margin-top: 10px;
-          /* display: flex;
-          justify-content: space-between; */
-          .level , .time {
+          .time{
             display: flex;
             align-items: center;
-            margin-top: 20px;
+            margin-top: 15px;
+
           }
         }
       }
@@ -133,6 +112,4 @@ const goDetail = ()=>{
     }
   }
 }
-
-
 </style>

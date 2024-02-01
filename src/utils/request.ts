@@ -4,8 +4,8 @@ import { ElMessage } from 'element-plus';
 
 const request = axios.create({
   baseURL:'/api',
-  // 请求超出5s为请求超时/失败
-  timeout:5000
+  // 请求超出30s为请求超时/失败
+  timeout:30000
 })
 // 使用请求拦截器
 request.interceptors.request.use((config)=>{
@@ -21,7 +21,7 @@ request.interceptors.response.use((response)=>{
 },(error)=>{
   // 响应拦截器失败的回调
   // 可以处理http 404等问题
-  let status = error.response.status;
+  let status = error.response?.status;
   switch(status){
     case 301|302|303|304:
       ElMessage({

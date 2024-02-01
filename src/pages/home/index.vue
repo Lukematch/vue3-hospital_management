@@ -26,7 +26,9 @@
             @size-change="sizeChange"
           />
       </el-col>
-      <el-col :span="6">4</el-col>
+      <el-col :span="6">
+        <Tip/>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -37,6 +39,7 @@ import Search from './search/index.vue'
 import Level from './level/index.vue'
 import Region from './region/index.vue'
 import Card from './card/index.vue'
+import Tip from './tip/index.vue'
 
 import { onMounted, ref } from 'vue'
 import {reqHospital} from '@/api/home'
@@ -63,7 +66,8 @@ const getHospitalInfo = async ()=>{
     console.log(hospitalList);
     hasHospitalArr.value = hospitalList
     // 存储医院总个数
-    total.value = hospitalList.length;
+    // total.value = hospitalList.length;
+    total.value = result.data.totalElements
     // total.value = 17
   }
 }
@@ -105,6 +109,7 @@ onMounted(()=>{
   text-align: center;
 }
 .content{
+  min-width: 1050px;
   margin-top: 60px;
   .card{
     margin-top: 30px;
@@ -116,16 +121,12 @@ onMounted(()=>{
       width: 45%;
       }
     }
-    @media screen and (max-width: 1070px) and (min-width:750px){
+    @media screen and (max-width: 1070px){
       .item{
-      width: 60%;
+      width: 36%;
       }
     }
-    @media screen and (max-width: 750px){
-      .item{
-      width: 60%;
-      }
-    }
+
 
   }
   .pagination{
