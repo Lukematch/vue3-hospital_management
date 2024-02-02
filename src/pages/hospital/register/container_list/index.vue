@@ -1,70 +1,65 @@
 <template>
-  <div class="container">
+  <div v-if="hoscode" class="container">
   <h1>选择科室</h1>
-  <el-container style="height: 600px">
+  <el-container style="height: 565px;width: 900px;">
     <el-aside width="200px">
       <el-scrollbar>
         <el-menu :default-openeds="['1', '3']">
-          <el-menu-item index="1">Option 1</el-menu-item>
-          <el-menu-item index="2">Option 2</el-menu-item>
-          <el-menu-item index="3">Option 3</el-menu-item>
-          <el-menu-item index="4">Option 4</el-menu-item>
-          <el-menu-item index="5">Option 5</el-menu-item>
-          <el-menu-item index="6">Option 6</el-menu-item>
-          <el-menu-item index="7">Option 7</el-menu-item>
+          <el-menu-item v-for="item in departmentList" :key="item.depcode" :index="item.depcode">{{ item.depname }}</el-menu-item>
         </el-menu>
       </el-scrollbar>
     </el-aside>
     <el-container>
       <el-main>
         <el-scrollbar>
-          <el-table :data="tableData">
-            <el-table-column prop="option1" label="Option1"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option2" label="Option2"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option3" label="Option3"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option4" label="Option4"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option5" label="Option5"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option6" label="Option6"/>
-          </el-table>
-          <el-table :data="tableData">
-            <el-table-column prop="option7" label="Option7"/>
-          </el-table>
+         <div v-for="i in departmentList" :key="i.depcode" class="depart">
+          <div class="title">
+            <el-icon><PriceTag /></el-icon>
+            <h2>{{ i.depname }}</h2>
+          </div>
+          <ul>
+            <li v-for="j in i.children" :key="j.depcode">{{ j.depname }}</li>
+          </ul>
+        </div>
         </el-scrollbar>
       </el-main>
     </el-container>
   </el-container>
   </div>
+  <div v-else>
+    <el-empty description="暂无数据" />
+  </div>
 </template>
 
 <script setup lang='ts'>
-import { ref } from 'vue'
-// import {  } from '@element-plus/icons-vue'
+import { reqDepartment } from '@/api/hospital';
+import { DepartmentList } from '@/api/hospital/type';
+import { onMounted, ref } from 'vue';
+import { defineProps } from 'vue';
+import { PriceTag } from '@element-plus/icons-vue'
 
-const item = {
-  option1: '内容1',
-  option2: '内容2',
-  option3: '内容3',
-  option4: '内容4',
-  option5: '内容5',
-  option6: '内容6',
-  option7: '内容7',
+
+let departmentList = <any>ref([])
+
+const {hoscode} = defineProps(['hoscode'])
+
+const getDepartment = async()=>{
+  let { data }:DepartmentList = await reqDepartment(hoscode)
+  console.log(data);
+  departmentList.value = data
 }
-const tableData = ref(Array.from({ length: 3 }).fill(item))
+
+onMounted(()=>{
+  getDepartment()
+})
+
+
 </script>
 
 <style scoped>
 .container {
-  margin-top:50px;
+  margin-top:60px;
+  margin-bottom: 30px;
   /* display: flex;
   flex: wrap; */
   h1{
@@ -72,14 +67,41 @@ const tableData = ref(Array.from({ length: 3 }).fill(item))
     font-weight: 700;
     color: #333;
     font-size: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
-  .el-header{
-    /* position: relative; */
-    color: var(--el-text-color-primary);
-  }
+
   .el-aside {
+    width: 150px;
     color: var(--el-text-color-primary);
+  }
+  .el-main {
+    .depart{
+      .title{
+        display: flex;
+        margin-bottom: 10px;
+        .el-icon{
+          color: #7f7f7f;
+        }
+        h2{
+          margin-left: 5px;
+          letter-spacing: 1px;
+          font-weight: 700;
+          color: #333;
+          font-size: 16px;
+        }
+      }
+      ul{
+        margin-bottom: 20px;
+        display: flex;
+        flex-wrap: wrap;
+        li{
+          width:200px;
+          margin-top: 15px;
+          margin-right: 15px;
+          color: #7f7f7f;
+        }
+      }
+    }
   }
 }
 </style>
